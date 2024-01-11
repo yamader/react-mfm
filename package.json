@@ -1,0 +1,48 @@
+{
+  "name": "react-mfm",
+  "description": "MFM for React",
+  "version": "0.1.0",
+  "dependencies": {
+    "jotai": "2.x",
+    "katex": "0.16.9",
+    "mfm-js": "0.24.0",
+    "misskey-js": "0.0.16",
+    "shiki": "0.14.7"
+  },
+  "devDependencies": {
+    "@types/katex": "0.16.7",
+    "@types/react": "18.2.48",
+    "prettier": "3.2.4",
+    "prettier-plugin-organize-imports": "3.2.4",
+    "tsup": "8.0.1",
+    "typescript": "5.3.3"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "packageManager": "bun@1.0.23",
+  "peerDependencies": {
+    "react": "18.x"
+  },
+  "scripts": {
+    "build": "tsup --minify --dts",
+    "check": "tsc",
+    "dev": "tsup --watch",
+    "fmt": "prettier -w ."
+  },
+  "tsup": {
+    "entry": [
+      "src"
+    ],
+    "format": "esm",
+    "sourcemap": true,
+    "splitting": false
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts"
+}

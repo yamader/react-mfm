@@ -1,0 +1,20 @@
+.mfm_quote {
+  display: block;
+  border-left: solid 3px gray;
+  opacity: 0.8;
+}
+
+.mfm_search {
+}
+.mfm_search_input {
+}
+.mfm_search_button {
+}
+
+.mfm_small {
+  opacity: 0.8;
+}
+
+.mfm_url_host {
+  font-weight: bold;
+}
