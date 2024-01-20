@@ -1,12 +1,15 @@
 import Mfm from "react-mfm"
 import "react-mfm/style.css"
 
-const example = `react-mfm [search]
+const example = String.raw`react-mfm [search]
 <center>
-**hello, world!**
-https://example.com/hoge
-\\(1 + 1 = 2\\)
-</center>`
+  **hello, world!**
+  https://example.com:3000/hoge
+</center>
+\[
+  (v\cdot\nabla)v
+\]
+`
 
 const App = () => (
   <main>

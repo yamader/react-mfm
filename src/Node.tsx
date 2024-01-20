@@ -1,5 +1,5 @@
 import { MfmNode } from "mfm-js"
-import { ReactNode } from "react"
+import { Fragment, ReactNode } from "react"
 import { MfmBasicProps } from "."
 import A from "./components/A"
 import Code from "./components/Code"
@@ -10,7 +10,7 @@ import Hashtag from "./components/Hashtag"
 import Mention from "./components/Mention"
 import Search from "./components/Search"
 import { composeFnStyle } from "./fn"
-import { intersperse } from "./utils"
+import { id, intersperse } from "./utils"
 
 const SingleNode = ({ node, ...props }: MfmBasicProps & { node: MfmNode }) => {
   switch (node.type) {
@@ -90,26 +90,28 @@ const SingleNode = ({ node, ...props }: MfmBasicProps & { node: MfmNode }) => {
     case "url": {
       const scheme = node.props.url.split(":")[0] + ":"
       const body = node.props.url.slice(scheme.length)
-      const res: ReactNode[] = [scheme]
 
-      if (body.startsWith("//")) {
-        res.push("//")
-        let auth = body.slice(2).split("/")[0]
-        const authlen = auth.length
-        if (auth.includes("@")) {
-          const userinfo = auth.split("@")[0] + "@"
-          res.push(userinfo)
-          auth = auth.slice(userinfo.length)
-        }
-        const [host, ...port] = auth.split(":")
-        res.push(<span className="mfm_url_host">{host}</span>)
-        if (port.length) res.push(port.join(":"))
-        res.push(body.slice(2 + authlen))
-      } else res.push(body)
+      if (!body.startsWith("//"))
+        return (
+          <A href={node.props.url} rel="nofollow noopener">
+            {node.props.url}
+          </A>
+        )
+
+      let prefix = scheme + "//"
+      let auth = body.slice(2).split("/")[0]
+      if (auth.includes("@")) {
+        const userinfo = auth.split("@")[0] + "@"
+        prefix += userinfo
+        auth = auth.slice(userinfo.length)
+      }
+      const host = auth.split(":")[0]
 
       return (
         <A href={node.props.url} rel="nofollow noopener">
-          {res}
+          {prefix}
+          <span className="mfm_url_host">{host}</span>
+          {node.props.url.slice(prefix.length + host.length)}
         </A>
       )
     }
@@ -138,7 +140,11 @@ const SingleNode = ({ node, ...props }: MfmBasicProps & { node: MfmNode }) => {
     case "text": {
       const orig = node.props.text.replace(/\r\n?/g, "\n")
       const text = props.nyaize ? orig : orig // todo: nyaize
-      return props.plain ? text.replace(/\n/g, " ") : intersperse<ReactNode>(text.split("\n"), <br />)
+
+      if (props.plain) return text.replace(/\n/g, " ")
+      return intersperse<ReactNode>(text.split("\n"), <br />)
+        .filter(id)
+        .map((e, i) => <Fragment key={i}>{e}</Fragment>)
     }
   }
 }
