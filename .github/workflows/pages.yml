@@ -1,0 +1,37 @@
+name: Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v4
+      - uses: oven-sh/setup-bun@v1
+      - run: |
+          bun i
+          bun run build
+      - run: |
+          bun i
+          bun prepare
+          bun run build
+        working-directory: example
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: example/out
+  deploy:
+    permissions:
+      id-token: write
+      pages: write
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

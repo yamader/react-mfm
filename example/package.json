@@ -9,13 +9,15 @@
   "devDependencies": {
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
-    "@types/react-dom": "18.2.18"
+    "@types/react-dom": "18.2.18",
+    "serve": "14.2.1"
   },
   "private": true,
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "start": "next start"
+    "prepare": "sed -ie 's/require.resolve/__non_webpack_require__.resolve/g' ../node_modules/shiki/dist/index.esm.js",
+    "preview": "serve out"
   },
   "type": "module"
 }
