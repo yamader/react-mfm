@@ -1,15 +1,15 @@
+import Link from "next/link"
 import { ReactNode } from "react"
 
 export default function MainLayout({ children }: { children: ReactNode }) {
-  // next/linkは意図的に避けている
   return (
     <main style={{ maxWidth: "32rem", margin: "auto" }}>
       <header style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
-        <a href="/">
+        <Link href="/" passHref>
           <h1>react-mfm demo</h1>
-        </a>
+        </Link>
         <nav>
-          <a href="/rsc">RSC demo</a>
+          <Link href="/rsc">RSC demo</Link>
         </nav>
       </header>
       {children}

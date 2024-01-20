@@ -1,6 +1,8 @@
 import { MfmNode, parse, parseSimple } from "mfm-js"
+import { proxy, useSnapshot } from "valtio"
 import Node from "./Node"
 import "./style.css"
+import { keys } from "./utils"
 
 type MfmBasicProps = {
   plain?: boolean
@@ -16,5 +18,16 @@ const MfmBase =
 const Mfm = MfmBase(parse)
 const MfmSimple = MfmBase(parseSimple)
 
-export * from "./ctx"
-export { Mfm, MfmBasicProps, MfmSimple, Mfm as default }
+type MfmConfig = {
+  assetsBase?: string
+}
+
+const $mfmConfig = proxy<MfmConfig>({})
+const resetMfmConfig = (config: MfmConfig) => {
+  keys(config).forEach(key => {
+    $mfmConfig[key] = config[key]
+  })
+}
+const useMfmConfig = () => useSnapshot($mfmConfig)
+
+export { $mfmConfig, Mfm, MfmBasicProps, MfmConfig, MfmSimple, Mfm as default, resetMfmConfig, useMfmConfig }

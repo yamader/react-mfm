@@ -1,9 +1,10 @@
 "use client"
 
-import { atom, useAtom, useAtomValue } from "jotai"
-import { atomWithDefault } from "jotai/utils"
-import { FC, Suspense, useCallback, useMemo } from "react"
+import { FC, Suspense, useEffect, useMemo } from "react"
 import { BUNDLED_LANGUAGES, Lang, getHighlighter, setWasm } from "shiki"
+import { proxy, useSnapshot } from "valtio"
+import { derive } from "valtio/utils"
+import { $mfmConfig } from ".."
 import { dirname, isServer } from "../utils"
 
 type Props = {
@@ -11,60 +12,62 @@ type Props = {
   lang?: string
 }
 
-const theme = "dark-plus"
+const theme = "monokai"
 const defaultLang = "js"
+const langs: Lang[] = [defaultLang]
 const bundledLangs = BUNDLED_LANGUAGES.map(lang => [lang.id, ...(lang.aliases ?? [])]).flat()
 
-const highlighterAtom = atom(async () => {
-  if (isServer) {
-    const resolve = import.meta.resolve ?? require.resolve
-    const base = dirname(resolve("shiki")) + "/../" // shiki/dist/index.js -> shiki/dist/../
-    return getHighlighter({
-      theme,
-      langs: [defaultLang],
-      paths: {
-        themes: base + "themes",
-        languages: base + "languages",
-      },
-    })
-  } else {
-    const [shiki, onig, themeJson] = await Promise.all([
-      import("shiki"),
-      import("vscode-oniguruma/release/onig.wasm"),
-      import(`shiki/themes/${theme}.json`),
-    ])
-    setWasm(await fetch(onig.default))
-    return shiki.getHighlighter({
-      theme: themeJson.default,
-      langs: [defaultLang],
-    })
-  }
+const derived = derive({
+  highlighter: async get => {
+    if (isServer) {
+      const resolve = import.meta.resolve ?? require.resolve
+      const base = dirname(resolve("shiki")) + "/../" // shiki/dist/index.js -> shiki/dist/../
+      return getHighlighter({
+        theme,
+        langs,
+        paths: {
+          themes: base + "themes",
+          languages: base + "languages",
+        },
+      })
+    } else {
+      const [shiki, onig, themeJson] = await Promise.all([
+        import("shiki"),
+        import("vscode-oniguruma/release/onig.wasm"),
+        import(`shiki/themes/${theme}.json`),
+      ])
+      setWasm(await fetch(onig.default))
+      return shiki.getHighlighter({
+        theme: themeJson.default,
+        langs,
+        paths: {
+          languages: get($mfmConfig).assetsBase + "/languages",
+        },
+      })
+    }
+  },
 })
 
-const langsAtom = atomWithDefault<string[] | Promise<string[]>>(async get =>
-  (await get(highlighterAtom)).getLoadedLanguages(),
-)
+const state = proxy({
+  langs,
+})
 
-const CodeSuspense = ({ code, lang = "js" }: Props) => {
-  const highlighter = useAtomValue(highlighterAtom)
-  const [langs, setLangs] = useAtom(langsAtom)
+const CodeSuspense = ({ code, lang = defaultLang }: Props) => {
+  const { highlighter } = useSnapshot(derived)
+  const { langs } = useSnapshot(state)
 
-  const loadLang = useCallback(
-    async (lang: string) => {
-      if (!bundledLangs.includes(lang)) return
-      await highlighter.loadLanguage(lang as Lang)
-      setLangs(highlighter.getLoadedLanguages())
-    },
-    [highlighter, setLangs],
-  )
-
-  const html = useMemo(() => {
-    if (!langs.includes(lang)) {
-      loadLang(lang)
-      return highlighter.codeToHtml(code, { lang: defaultLang })
+  useEffect(() => {
+    if (!langs.includes(lang as Lang) && bundledLangs.includes(lang)) {
+      highlighter.loadLanguage(lang as Lang).then(() => {
+        state.langs = highlighter.getLoadedLanguages()
+      })
     }
-    return highlighter.codeToHtml(code, { lang })
-  }, [highlighter, langs, loadLang, code, lang])
+  }, [highlighter, langs, lang])
+
+  const html = useMemo(
+    () => highlighter.codeToHtml(code, { lang: langs.includes(lang as Lang) ? lang : defaultLang }),
+    [highlighter, langs, code, lang],
+  )
 
   return <div className="mfm_blockCode" dangerouslySetInnerHTML={{ __html: html }} />
 }
