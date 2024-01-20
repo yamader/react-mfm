@@ -76,7 +76,7 @@ const SingleNode = ({ node, ...props }: MfmBasicProps & { node: MfmNode }) => {
       )
 
     case "inlineCode":
-      return <Code code={node.props.code} inline />
+      return <code>{node.props.code}</code>
 
     case "mathInline":
       return <Formula formula={node.props.formula} />

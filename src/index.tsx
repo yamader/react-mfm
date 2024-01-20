@@ -1,5 +1,4 @@
 import { MfmNode, parse, parseSimple } from "mfm-js"
-import { createContext } from "react"
 import Node from "./Node"
 import "./style.css"
 
@@ -17,10 +16,5 @@ const MfmBase =
 const Mfm = MfmBase(parse)
 const MfmSimple = MfmBase(parseSimple)
 
-const MfmConfigContext = createContext<{
-  host?: string
-}>({})
-
-const MfmConfigProvider = MfmConfigContext.Provider
-
-export { Mfm, MfmBasicProps, MfmConfigContext, MfmConfigProvider, MfmSimple, Mfm as default }
+export * from "./ctx"
+export { Mfm, MfmBasicProps, MfmSimple, Mfm as default }

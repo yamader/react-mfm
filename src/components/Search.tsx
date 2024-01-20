@@ -12,7 +12,14 @@ const Search = ({ query }: MfmSearch["props"]) => {
 
   return (
     <div className="mfm_search">
-      <input type="search" defaultValue={query} placeholder={query} ref={input} className="mfm_search_button" />
+      <input
+        type="search"
+        defaultValue={query}
+        placeholder={query}
+        ref={input}
+        key={query}
+        className="mfm_search_button"
+      />
       <button
         onClick={() => {
           const current = input.current?.value
