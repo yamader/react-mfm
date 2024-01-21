@@ -20,6 +20,8 @@ jobs:
           bun prepare
           bun run build
         working-directory: example
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: example/out
