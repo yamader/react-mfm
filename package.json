@@ -8,7 +8,8 @@
     "mfm-js": "0.24.0",
     "misskey-js": "0.0.16",
     "shiki": "0.14.7",
-    "valtio": "1.13.0"
+    "valtio": "1.13.0",
+    "vscode-oniguruma": "^2.0.1"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "7.39.1",
