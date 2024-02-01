@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Mfm, { $mfmConfig } from "react-mfm"
+import Mfm, { useMfmConfig } from "react-mfm"
 import { basePath } from "../consts"
 
 const usage = `
@@ -34,11 +34,12 @@ react-mfm [search]
 
 export default function IndexPage() {
   const [text, setText] = useState(example)
+  const [mfmConfig, setMfmConfig] = useMfmConfig()
 
   useEffect(() => {
     // どこ置けばええんやろ(Client Componentに置く必要有)
-    $mfmConfig.assetsBase = basePath
-  }, [])
+    if (basePath && mfmConfig.assetsBase != basePath) setMfmConfig({ ...mfmConfig, assetsBase: basePath })
+  }, [mfmConfig, setMfmConfig])
 
   return (
     <>

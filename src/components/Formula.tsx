@@ -1,20 +1,18 @@
 "use client"
 
+import { atom, useAtomValue } from "jotai"
 import "katex/dist/katex.min.css"
 import { FC, Suspense, useMemo } from "react"
-import { proxy, useSnapshot } from "valtio"
 
 type Props = {
   formula: string
   block?: boolean
 }
 
-const state = proxy({
-  katex: import("katex").then(m => m.default),
-})
+const katexAtom = atom(async () => (await import("katex")).default)
 
 const FormulaSuspense = ({ formula, block }: Props) => {
-  const { renderToString } = useSnapshot(state).katex
+  const { renderToString } = useAtomValue(katexAtom)
   const html = useMemo(
     () =>
       renderToString(formula, {
