@@ -2,8 +2,6 @@
 
 import { MfmMention } from "mfm-js"
 
-const Mention = ({}: MfmMention["props"]) => {
+export default function Mention({}: MfmMention["props"]) {
   return <>Mention(wip)</>
 }
-
-export default Mention

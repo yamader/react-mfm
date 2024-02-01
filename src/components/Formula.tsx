@@ -11,7 +11,7 @@ type Props = {
 
 const katexAtom = atom(async () => (await import("katex")).default)
 
-const FormulaSuspense = ({ formula, block }: Props) => {
+function FormulaSuspense({ formula, block }: Props) {
   const { renderToString } = useAtomValue(katexAtom)
   const html = useMemo(
     () =>

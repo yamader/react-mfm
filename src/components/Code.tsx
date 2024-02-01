@@ -50,7 +50,7 @@ const langsAtom = atomWithDefault<Lang[] | Promise<Lang[]>>(async get =>
   (await get(highlighterAtom)).getLoadedLanguages(),
 )
 
-const CodeSuspense = ({ code, lang = defaultLang }: Props) => {
+function CodeSuspense({ code, lang = defaultLang }: Props) {
   const highlighter = useAtomValue(highlighterAtom)
   const [langs, setLangs] = useAtom(langsAtom)
 

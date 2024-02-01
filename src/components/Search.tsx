@@ -3,11 +3,11 @@
 import { MfmSearch } from "mfm-js"
 import { useRef } from "react"
 
-function google(query: string) {
+function search(query: string) {
   window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`)
 }
 
-const Search = ({ query }: MfmSearch["props"]) => {
+export default function Search({ query }: MfmSearch["props"]) {
   const input = useRef<HTMLInputElement>(null)
 
   return (
@@ -23,7 +23,7 @@ const Search = ({ query }: MfmSearch["props"]) => {
       <button
         onClick={() => {
           const current = input.current?.value
-          if (current) google(current)
+          if (current) search(current)
         }}
         className="mfm_search_button">
         検索
@@ -31,5 +31,3 @@ const Search = ({ query }: MfmSearch["props"]) => {
     </div>
   )
 }
-
-export default Search

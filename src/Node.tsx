@@ -12,7 +12,12 @@ import Search from "./components/Search"
 import { composeFnStyle } from "./fn"
 import { id, intersperse } from "./utils"
 
-const SingleNode = ({ node, ...props }: MfmBasicProps & { node: MfmNode }) => {
+const Node = ({ nodes, ...props }: MfmBasicProps & { nodes?: MfmNode[] }) =>
+  nodes?.map((node, i) => <SingleNode node={node} {...props} key={i} />)
+
+export default Node
+
+function SingleNode({ node, ...props }: MfmBasicProps & { node: MfmNode }) {
   switch (node.type) {
     case "quote":
       return node.props?.nowrap ? (
@@ -148,9 +153,3 @@ const SingleNode = ({ node, ...props }: MfmBasicProps & { node: MfmNode }) => {
     }
   }
 }
-
-const Node = ({ nodes, ...props }: MfmBasicProps & { nodes?: MfmNode[] }) => (
-  <>{nodes && nodes.map((node, i) => <SingleNode {...props} node={node} key={i} />)}</>
-)
-
-export default Node
