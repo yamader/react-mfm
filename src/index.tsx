@@ -6,7 +6,6 @@ import "./style.css"
 type MfmBasicProps = {
   plain?: boolean
   nowrap?: boolean
-  scale?: number
   nyaize?: boolean | "respect"
 }
 
@@ -18,10 +17,18 @@ const Mfm = MfmBase(parse)
 const MfmSimple = MfmBase(parseSimple)
 
 type MfmConfig = {
+  // mfm
+  advanced: boolean
+  animation: boolean
+
+  // system
   assetsBase?: string
 }
 
-const mfmConfigAtom = atom<MfmConfig>({})
+const mfmConfigAtom = atom<MfmConfig>({
+  advanced: true,
+  animation: true,
+})
 const useMfmConfig = () => useAtom(mfmConfigAtom)
 
 export { Mfm, MfmBasicProps, MfmConfig, MfmSimple, Mfm as default, mfmConfigAtom, useMfmConfig }

@@ -5,11 +5,11 @@ import A from "./components/A"
 import Code from "./components/Code"
 import CustomEmoji from "./components/CustomEmoji"
 import Emoji from "./components/Emoji"
+import Fn from "./components/Fn"
 import Formula from "./components/Formula"
 import Hashtag from "./components/Hashtag"
 import Mention from "./components/Mention"
 import Search from "./components/Search"
-import { composeFnStyle } from "./fn"
 import { id, intersperse } from "./utils"
 
 const Node = ({ nodes, ...props }: MfmBasicProps & { nodes?: MfmNode[] }) =>
@@ -130,9 +130,9 @@ function SingleNode({ node, ...props }: MfmBasicProps & { node: MfmNode }) {
 
     case "fn":
       return (
-        <span style={composeFnStyle(node.props.name, props.scale)}>
+        <Fn {...node.props}>
           <Node nodes={node.children} {...props} />
-        </span>
+        </Fn>
       )
 
     case "plain":
