@@ -1,5 +1,8 @@
-import { MfmUnicodeEmoji } from "mfm-js"
+"use client"
 
-export default function Emoji({}: MfmUnicodeEmoji["props"]) {
-  return <>(emoji:wip)</>
+import { MfmUnicodeEmoji } from "mfm-js"
+import Twemoji from "./Twemoji"
+
+export default function Emoji({ emoji }: MfmUnicodeEmoji["props"]) {
+  return <Twemoji code={emoji} />
 }

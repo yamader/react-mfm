@@ -4,10 +4,10 @@
   "version": "0.1.0",
   "author": "YamaD <dev@dyama.net>",
   "dependencies": {
+    "@twemoji/api": "15.0.3",
     "jotai": ">=2.2.0",
     "katex": "0.16.9",
     "mfm-js": "0.24.0",
-    "misskey-js": "0.0.16",
     "shiki": "0.14.7"
   },
   "devDependencies": {

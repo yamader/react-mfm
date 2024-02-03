@@ -1,6 +1,10 @@
-import { atom, useAtom } from "jotai"
+import { atom, useAtom, useAtomValue } from "jotai"
 import { MfmNode, parse, parseSimple } from "mfm-js"
+import { FC } from "react"
 import Node from "./Node"
+import { CustomEmojiProps } from "./components/CustomEmoji"
+import { HashtagProps } from "./components/Hashtag"
+import { MentionProps } from "./components/Mention"
 import "./style.css"
 
 type MfmBasicProps = {
@@ -21,6 +25,11 @@ type MfmConfig = {
   advanced: boolean
   animation: boolean
 
+  // components
+  CustomEmoji?: FC<CustomEmojiProps>
+  Hashtag?: FC<HashtagProps>
+  Mention?: FC<MentionProps>
+
   // system
   assetsBase?: string
 }
@@ -30,5 +39,6 @@ const mfmConfigAtom = atom<MfmConfig>({
   animation: true,
 })
 const useMfmConfig = () => useAtom(mfmConfigAtom)
+const useMfmConfigValue = () => useAtomValue(mfmConfigAtom)
 
-export { Mfm, MfmBasicProps, MfmConfig, MfmSimple, Mfm as default, mfmConfigAtom, useMfmConfig }
+export { Mfm, MfmBasicProps, MfmConfig, MfmSimple, Mfm as default, mfmConfigAtom, useMfmConfig, useMfmConfigValue }

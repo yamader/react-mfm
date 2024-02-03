@@ -1,5 +1,7 @@
-import { FC, HTMLProps } from "react"
+import { HTMLProps } from "react"
 
-const A: FC<HTMLProps<HTMLAnchorElement>> = props => <a {...props} />
+type AProps = HTMLProps<HTMLAnchorElement>
+
+const A = (props: AProps) => <a {...props} />
 
 export default A

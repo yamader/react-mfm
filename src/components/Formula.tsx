@@ -2,16 +2,16 @@
 
 import { atom, useAtomValue } from "jotai"
 import "katex/dist/katex.min.css"
-import { FC, Suspense, useMemo } from "react"
+import { Suspense, useMemo } from "react"
 
-type Props = {
+type FormulaProps = {
   formula: string
   block?: boolean
 }
 
 const katexAtom = atom(async () => (await import("katex")).default)
 
-function FormulaSuspense({ formula, block }: Props) {
+function FormulaSuspense({ formula, block }: FormulaProps) {
   const { renderToString } = useAtomValue(katexAtom)
   const html = useMemo(
     () =>
@@ -29,7 +29,7 @@ function FormulaSuspense({ formula, block }: Props) {
   )
 }
 
-const Formula: FC<Props> = props => (
+const Formula = (props: FormulaProps) => (
   <Suspense fallback={props.block ? <div>{props.formula}</div> : <span>{props.formula}</span>}>
     <FormulaSuspense {...props} />
   </Suspense>

@@ -23,8 +23,10 @@ export default function Page() {
 
 const example = String.raw`
 react-mfm [search]
+hi @user@example.org ! #React #MFM
 <center>
   **hello, world!**
+  $[x2 🐔🍹🍣🍦]
   https://example.com:3000/hoge
 </center>
 \[

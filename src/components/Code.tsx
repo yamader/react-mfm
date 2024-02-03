@@ -2,12 +2,12 @@
 
 import { atom, useAtom, useAtomValue } from "jotai"
 import { atomWithDefault } from "jotai/utils"
-import { FC, Suspense, useEffect, useMemo } from "react"
+import { Suspense, useEffect, useMemo } from "react"
 import { BUNDLED_LANGUAGES, Lang, getHighlighter, setWasm } from "shiki"
 import { mfmConfigAtom } from ".."
 import { dirname, isServer } from "../utils"
 
-type Props = {
+type CodeProps = {
   code: string
   lang?: string
 }
@@ -50,7 +50,7 @@ const langsAtom = atomWithDefault<Lang[] | Promise<Lang[]>>(async get =>
   (await get(highlighterAtom)).getLoadedLanguages(),
 )
 
-function CodeSuspense({ code, lang = defaultLang }: Props) {
+function CodeSuspense({ code, lang = defaultLang }: CodeProps) {
   const highlighter = useAtomValue(highlighterAtom)
   const [langs, setLangs] = useAtom(langsAtom)
 
@@ -70,7 +70,7 @@ function CodeSuspense({ code, lang = defaultLang }: Props) {
   return <div className="mfm_blockCode" dangerouslySetInnerHTML={{ __html: html }} />
 }
 
-const Code: FC<Props> = props => (
+const Code = (props: CodeProps) => (
   <Suspense
     fallback={
       <div className="mfm_blockCode">
