@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react"
 import Mfm, { useMfmConfig } from "react-mfm"
-import { basePath } from "../consts"
+import Auth from "~/components/Auth"
+import CustomEmoji from "~/components/CustomEmoji"
+import { basePath } from "~/consts"
 
 const usage = `
 \`\`\`tsx
@@ -40,8 +42,8 @@ export default function IndexPage() {
 
   useEffect(() => {
     // どこ置けばええんやろ(Client Componentに置く必要有)
-    if (basePath && mfmConfig.assetsBase != basePath) setMfmConfig({ ...mfmConfig, assetsBase: basePath })
-  }, [mfmConfig, setMfmConfig])
+    setMfmConfig({ ...mfmConfig, assetsBase: basePath, CustomEmoji })
+  }, [])
 
   return (
     <>
@@ -59,8 +61,9 @@ export default function IndexPage() {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "1rem",
+          gap: ".5rem",
         }}>
+        <Auth />
         <textarea
           placeholder="**try MFM here**"
           value={text}
@@ -70,7 +73,6 @@ export default function IndexPage() {
             minHeight: "16em",
             padding: ".4rem",
             resize: "none",
-            boxSizing: "border-box",
             border: "1px solid gray",
             borderRadius: ".4em",
           }}

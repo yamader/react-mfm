@@ -15,6 +15,8 @@ In contrast, **BOLD**, ~~Strike~~, _Oblique_, [link](http://example.com), \`Inli
 > and Quote
 are server components.`
 
+// Composition含めRSCだけなんだよ 本当だよ
+
 export default function RscPage() {
   return (
     <>

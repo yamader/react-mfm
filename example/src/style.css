@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+}
+
+.box {
+  padding: 0.8rem;
+  border: 1px solid gray;
+  border-radius: 0.4em;
+  background: white;
+}
+
+a.natural {
+  color: inherit;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
