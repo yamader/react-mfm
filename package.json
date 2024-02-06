@@ -8,7 +8,8 @@
     "jotai": ">=2.2.0 <3",
     "katex": "0.16.9",
     "mfm-js": "0.24.0",
-    "shiki": "0.14.7"
+    "shiki": "0.14.7",
+    "vscode-oniguruma": "1.7.0"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "7.39.5",
