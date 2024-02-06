@@ -7,7 +7,7 @@
     "jsx": "react-jsx",
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
+    "noEmit": true
   },
-  "exclude": ["example"],
+  "exclude": ["example"]
 }
