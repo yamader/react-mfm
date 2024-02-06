@@ -1,6 +1,6 @@
 "use client"
 
-import { MfmEmojiCode } from "mfm-js"
+import { type MfmEmojiCode } from "mfm-js"
 import { useMfmConfigValue } from ".."
 
 export type CustomEmojiProps = MfmEmojiCode["props"]

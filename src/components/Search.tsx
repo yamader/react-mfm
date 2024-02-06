@@ -1,6 +1,6 @@
 "use client"
 
-import { MfmSearch } from "mfm-js"
+import { type MfmSearch } from "mfm-js"
 import { useRef } from "react"
 
 function search(query: string) {

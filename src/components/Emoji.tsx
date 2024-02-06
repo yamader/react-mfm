@@ -1,6 +1,6 @@
 "use client"
 
-import { MfmUnicodeEmoji } from "mfm-js"
+import { type MfmUnicodeEmoji } from "mfm-js"
 import Twemoji from "./Twemoji"
 
 export default function Emoji({ emoji }: MfmUnicodeEmoji["props"]) {

@@ -1,6 +1,6 @@
 "use client"
 
-import { MfmMention } from "mfm-js"
+import { type MfmMention } from "mfm-js"
 import { useMfmConfigValue } from ".."
 
 export type MentionProps = MfmMention["props"]

@@ -1,8 +1,8 @@
 "use client"
 
 import { useAtomValue } from "jotai"
-import { MfmFn } from "mfm-js"
-import { CSSProperties, ReactNode } from "react"
+import { type MfmFn } from "mfm-js"
+import { type CSSProperties, type ReactNode } from "react"
 import { mfmConfigAtom } from ".."
 
 type Arg = string | true

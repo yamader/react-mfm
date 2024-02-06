@@ -1,6 +1,6 @@
 "use client"
 
-import { MfmHashtag } from "mfm-js"
+import { type MfmHashtag } from "mfm-js"
 import { useMfmConfigValue } from ".."
 
 export type HashtagProps = MfmHashtag["props"]

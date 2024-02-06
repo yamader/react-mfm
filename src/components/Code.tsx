@@ -3,7 +3,7 @@
 import { atom, useAtom, useAtomValue } from "jotai"
 import { atomWithDefault } from "jotai/utils"
 import { Suspense, useEffect, useMemo } from "react"
-import { BUNDLED_LANGUAGES, Lang, getHighlighter, setWasm } from "shiki"
+import { BUNDLED_LANGUAGES, getHighlighter, setWasm, type Lang } from "shiki"
 import { mfmConfigAtom } from ".."
 import { dirname, isServer } from "../utils"
 

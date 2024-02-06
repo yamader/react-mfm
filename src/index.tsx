@@ -1,13 +1,16 @@
 import { atom, useAtom, useAtomValue } from "jotai"
-import { MfmNode, parse, parseSimple } from "mfm-js"
-import { FC } from "react"
+import { parse, parseSimple, type MfmNode } from "mfm-js"
+import { type FC } from "react"
 import Node from "./Node"
-import { CustomEmojiProps } from "./components/CustomEmoji"
-import { HashtagProps } from "./components/Hashtag"
-import { MentionProps } from "./components/Mention"
+import { type CustomEmojiProps } from "./components/CustomEmoji"
+import { type HashtagProps } from "./components/Hashtag"
+import { type MentionProps } from "./components/Mention"
 import "./style.css"
 
-type MfmBasicProps = {
+////////////////////////////////////////////////////////////////
+
+// for internal use
+export type MfmBasicProps = {
   plain?: boolean
   nowrap?: boolean
   nyaize?: boolean | "respect"
@@ -17,10 +20,16 @@ const MfmBase =
   (parser: (input: string) => MfmNode[]) =>
   ({ text, ...props }: MfmBasicProps & { text: string }) => <Node nodes={parser(text)} {...props} />
 
-const Mfm = MfmBase(parse)
-const MfmSimple = MfmBase(parseSimple)
+export const Mfm = MfmBase(parse)
+export const MfmSimple = MfmBase(parseSimple)
 
-type MfmConfig = {
+export default Mfm
+
+////////////////////////////////////////////////////////////////
+
+export { CustomEmojiProps, HashtagProps, MentionProps }
+
+export type MfmConfig = {
   // mfm
   advanced: boolean
   animation: boolean
@@ -34,11 +43,10 @@ type MfmConfig = {
   assetsBase?: string
 }
 
-const mfmConfigAtom = atom<MfmConfig>({
+export const mfmConfigAtom = atom<MfmConfig>({
   advanced: true,
   animation: true,
 })
-const useMfmConfig = () => useAtom(mfmConfigAtom)
-const useMfmConfigValue = () => useAtomValue(mfmConfigAtom)
 
-export { Mfm, MfmBasicProps, MfmConfig, MfmSimple, Mfm as default, mfmConfigAtom, useMfmConfig, useMfmConfigValue }
+export const useMfmConfig = () => useAtom(mfmConfigAtom)
+export const useMfmConfigValue = () => useAtomValue(mfmConfigAtom)
