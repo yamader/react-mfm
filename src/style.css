@@ -24,12 +24,14 @@
 }
 
 .mfm-emoji {
+  display: inline-block;
   height: 1.25em;
   margin: 0 0.05em 0 0.1em;
   vertical-align: -0.25em;
 }
 
 .mfm-customEmoji {
+  display: inline-block;
   height: 2em;
   vertical-align: -0.6em;
 }
