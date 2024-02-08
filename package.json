@@ -29,7 +29,7 @@
   "license": "WTFPL",
   "main": "./dist/index.js",
   "peerDependencies": {
-    "react": ">=18.0.0"
+    "react": ">=17.0.0"
   },
   "repository": "github:yamader/react-mfm",
   "scripts": {

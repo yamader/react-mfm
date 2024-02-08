@@ -1,7 +1,7 @@
 "use client"
 
-import { atom, useAtomValue } from "jotai"
-import { Suspense, use, useMemo } from "react"
+import { atom, useAtom, useAtomValue } from "jotai"
+import { Suspense, useMemo } from "react"
 import { bundledLanguages, getHighlighter, type BundledLanguage } from "shiki"
 
 type CodeProps = {
@@ -11,25 +11,23 @@ type CodeProps = {
 
 const theme = "monokai"
 const defaultLang = "js"
+const langs = [defaultLang]
 const bundledLangs = Object.keys(bundledLanguages)
 
-const highlighterAtom = atom(() =>
-  getHighlighter({
-    langs: [defaultLang],
-    themes: [theme],
-  }),
-)
+const highlighterAtom = atom(() => getHighlighter({ langs, themes: [theme] }))
+const langsAtom = atom(langs)
 
 function CodeSuspense({ code, lang = defaultLang }: CodeProps) {
   const highlighter = useAtomValue(highlighterAtom)
-  const html = useMemo(async () => {
-    if (!bundledLangs.includes(lang)) return highlighter.codeToHtml(code, { lang: defaultLang, theme })
-    if (!highlighter.getLoadedLanguages().includes(lang)) await highlighter.loadLanguage(lang as BundledLanguage)
-    return highlighter.codeToHtml(code, { lang, theme })
-  }, [highlighter, code, lang])
+  const [langs, setLangs] = useAtom(langsAtom)
 
-  const __html = use(html)
-  return <div className="mfm_blockCode" dangerouslySetInnerHTML={{ __html }} />
+  const html = useMemo(() => {
+    if (!langs.includes(lang) && bundledLangs.includes(lang as BundledLanguage))
+      highlighter.loadLanguage(lang as BundledLanguage).then(() => setLangs(highlighter.getLoadedLanguages()))
+    return highlighter.codeToHtml(code, { lang: langs.includes(lang) ? lang : defaultLang, theme })
+  }, [highlighter, langs, setLangs, code, lang])
+
+  return <div className="mfm_blockCode" dangerouslySetInnerHTML={{ __html: html }} />
 }
 
 const Code = (props: CodeProps) => (
