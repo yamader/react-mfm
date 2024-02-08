@@ -1,7 +1,7 @@
 {
   "name": "react-mfm",
   "description": "MFM for React",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "YamaD <dev@dyama.net>",
   "dependencies": {
     "@twemoji/api": "15.0.3",
@@ -11,10 +11,10 @@
     "shiki": "1.0.0"
   },
   "devDependencies": {
-    "@microsoft/api-extractor": "7.39.5",
+    "@microsoft/api-extractor": "7.40.1",
     "@types/katex": "0.16.7",
     "@types/node": "20.11.16",
-    "@types/react": "18.2.54",
+    "@types/react": "18.2.55",
     "prettier": "3.2.5",
     "prettier-plugin-organize-imports": "3.2.4",
     "tsup": "8.0.1"

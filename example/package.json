@@ -7,9 +7,9 @@
     "react-mfm": "file:.."
   },
   "devDependencies": {
-    "@types/node": "20.11.16",
-    "@types/react": "18.2.54",
-    "@types/react-dom": "18.2.18",
+    "@types/node": "20",
+    "@types/react": "18",
+    "@types/react-dom": "18",
     "serve": "14.2.1"
   },
   "private": true,
