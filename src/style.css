@@ -1,25 +1,29 @@
-.mfm_quote {
+.mfm-quote {
   display: block;
   border-left: solid 3px gray;
   opacity: 0.8;
 }
 
-.mfm_search {
+.mfm-search {
 }
-.mfm_search_input {
+.mfm-searchInput {
 }
-.mfm_search_button {
+.mfm-searchButton {
 }
 
-.mfm_blockCode {
+.mfm-blockCode {
 }
-.mfm_blockCode pre {
+.mfm-blockCode pre {
   margin: 0;
   padding: 0.8rem;
   border-radius: 0.4rem;
 }
 
-.mfm_emoji {
+.mfm-center {
+  text-align: center;
+}
+
+.mfm-emoji {
   height: 1.25em;
   margin: 0 0.05em 0 0.1em;
   vertical-align: -0.25em;
@@ -30,10 +34,20 @@
   vertical-align: -0.6em;
 }
 
-.mfm_small {
+.mfm-small {
   opacity: 0.8;
 }
 
-.mfm_url_host {
+.mfm-italic {
+  font-style: oblique;
+}
+
+.mfm-mention {
+}
+
+.mfm-hashtag {
+}
+
+.mfm-urlHost {
   font-weight: bold;
 }

@@ -7,7 +7,7 @@ export type HashtagProps = MfmHashtag["props"]
 
 function SimpleHashtag({ hashtag }: HashtagProps) {
   return (
-    <a className="mfm_hashtag" href={"/tags/" + hashtag} rel="nofollow noopener">
+    <a className="mfm-hashtag" href={"/tags/" + hashtag} rel="nofollow noopener">
       #{hashtag}
     </a>
   )

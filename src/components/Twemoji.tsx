@@ -3,7 +3,7 @@ import { memo } from "react"
 
 // 意味のない最適化だよ
 
-const Twemoji = memo(({ code }: { code: string }) => {
+function Twemoji({ code }: { code: string }) {
   const html = twemoji.parse(code)
   const res = html.match(/(?<=<).+(?=\/>)/)?.[0].match(/(?<= )[^ >]+/g) ?? []
   const attrs = Object.fromEntries(
@@ -13,7 +13,7 @@ const Twemoji = memo(({ code }: { code: string }) => {
     }),
   )
   delete attrs.class
-  return <img className="mfm_emoji" {...attrs} />
-})
+  return <img className="mfm-emoji" {...attrs} />
+}
 
-export default Twemoji
+export default memo(Twemoji)

@@ -11,21 +11,21 @@ export default function Search({ query }: MfmSearch["props"]) {
   const input = useRef<HTMLInputElement>(null)
 
   return (
-    <div className="mfm_search">
+    <div className="mfm-search">
       <input
         type="search"
         defaultValue={query}
         placeholder={query}
         ref={input}
         key={query}
-        className="mfm_search_button"
+        className="mfm-searchButton"
       />
       <button
         onClick={() => {
           const current = input.current?.value
           if (current) search(current)
         }}
-        className="mfm_search_button">
+        className="mfm-searchButton">
         検索
       </button>
     </div>

@@ -21,11 +21,11 @@ function SingleNode({ node, ...props }: MfmBasicProps & { node: MfmNode }) {
   switch (node.type) {
     case "quote":
       return node.props?.nowrap ? (
-        <span className="mfm_quote">
+        <span className="mfm-quote">
           <Node nodes={node.children} nyaize={false} />
         </span>
       ) : (
-        <div className="mfm_quote">
+        <div className="mfm-quote">
           <Node nodes={node.children} nyaize={false} />
         </div>
       )
@@ -41,7 +41,7 @@ function SingleNode({ node, ...props }: MfmBasicProps & { node: MfmNode }) {
 
     case "center":
       return (
-        <div style={{ textAlign: "center" }}>
+        <div className="mfm-center">
           <Node nodes={node.children} {...props} />
         </div>
       )
@@ -61,14 +61,14 @@ function SingleNode({ node, ...props }: MfmBasicProps & { node: MfmNode }) {
 
     case "small":
       return (
-        <small className="mfm_small">
+        <small className="mfm-small">
           <Node nodes={node.children} {...props} />
         </small>
       )
 
     case "italic":
       return (
-        <i style={{ fontStyle: "oblique" }}>
+        <i className="mfm-italic">
           <Node nodes={node.children} {...props} />
         </i>
       )
@@ -115,7 +115,7 @@ function SingleNode({ node, ...props }: MfmBasicProps & { node: MfmNode }) {
       return (
         <A href={node.props.url} rel="nofollow noopener">
           {prefix}
-          <span className="mfm_url_host">{host}</span>
+          <span className="mfm-urlHost">{host}</span>
           {node.props.url.slice(prefix.length + host.length)}
         </A>
       )

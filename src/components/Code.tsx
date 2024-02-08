@@ -27,13 +27,13 @@ function CodeSuspense({ code, lang = defaultLang }: CodeProps) {
     return highlighter.codeToHtml(code, { lang: langs.includes(lang) ? lang : defaultLang, theme })
   }, [highlighter, langs, setLangs, code, lang])
 
-  return <div className="mfm_blockCode" dangerouslySetInnerHTML={{ __html: html }} />
+  return <div className="mfm-blockCode" dangerouslySetInnerHTML={{ __html: html }} />
 }
 
 const Code = (props: CodeProps) => (
   <Suspense
     fallback={
-      <div className="mfm_blockCode">
+      <div className="mfm-blockCode">
         <pre>
           <code>{props.code}</code>
         </pre>
