@@ -1,11 +1,8 @@
 "use client"
 
-import { atom, useAtom, useAtomValue } from "jotai"
-import { atomWithDefault } from "jotai/utils"
-import { Suspense, useEffect, useMemo } from "react"
-import { BUNDLED_LANGUAGES, getHighlighter, setWasm, type Lang } from "shiki"
-import { mfmConfigAtom } from ".."
-import { dirname, isServer } from "../utils"
+import { atom, useAtomValue } from "jotai"
+import { Suspense, use, useMemo } from "react"
+import { bundledLanguages, getHighlighter, type BundledLanguage } from "shiki"
 
 type CodeProps = {
   code: string
@@ -14,60 +11,25 @@ type CodeProps = {
 
 const theme = "monokai"
 const defaultLang = "js"
-const langs: Lang[] = [defaultLang]
-const bundledLangs = BUNDLED_LANGUAGES.map(lang => [lang.id, ...(lang.aliases ?? [])]).flat()
+const bundledLangs = Object.keys(bundledLanguages)
 
-const highlighterAtom = atom(async get => {
-  if (isServer) {
-    const resolve = import.meta.resolve ?? require.resolve
-    const base = dirname(resolve("shiki")) + "/../" // shiki/dist/index.js -> shiki/dist/../
-    return getHighlighter({
-      theme,
-      langs,
-      paths: {
-        themes: base + "themes",
-        languages: base + "languages",
-      },
-    })
-  } else {
-    const [shiki, onig, themeJson] = await Promise.all([
-      import("shiki"),
-      import("vscode-oniguruma/release/onig.wasm"),
-      import(`shiki/themes/${theme}.json`),
-    ])
-    setWasm(await fetch(onig.default))
-    return shiki.getHighlighter({
-      theme: themeJson.default,
-      langs,
-      paths: {
-        languages: (get(mfmConfigAtom).assetsBase ?? "") + "/languages",
-      },
-    })
-  }
-})
-
-const langsAtom = atomWithDefault<Lang[] | Promise<Lang[]>>(async get =>
-  (await get(highlighterAtom)).getLoadedLanguages(),
+const highlighterAtom = atom(() =>
+  getHighlighter({
+    langs: [defaultLang],
+    themes: [theme],
+  }),
 )
 
 function CodeSuspense({ code, lang = defaultLang }: CodeProps) {
   const highlighter = useAtomValue(highlighterAtom)
-  const [langs, setLangs] = useAtom(langsAtom)
+  const html = useMemo(async () => {
+    if (!bundledLangs.includes(lang)) return highlighter.codeToHtml(code, { lang: defaultLang, theme })
+    if (!highlighter.getLoadedLanguages().includes(lang)) await highlighter.loadLanguage(lang as BundledLanguage)
+    return highlighter.codeToHtml(code, { lang, theme })
+  }, [highlighter, code, lang])
 
-  useEffect(() => {
-    if (!langs.includes(lang as Lang) && bundledLangs.includes(lang)) {
-      highlighter.loadLanguage(lang as Lang).then(() => {
-        setLangs(highlighter.getLoadedLanguages())
-      })
-    }
-  }, [highlighter, langs, setLangs, lang])
-
-  const html = useMemo(
-    () => highlighter.codeToHtml(code, { lang: langs.includes(lang as Lang) ? lang : defaultLang }),
-    [highlighter, langs, code, lang],
-  )
-
-  return <div className="mfm_blockCode" dangerouslySetInnerHTML={{ __html: html }} />
+  const __html = use(html)
+  return <div className="mfm_blockCode" dangerouslySetInnerHTML={{ __html }} />
 }
 
 const Code = (props: CodeProps) => (
