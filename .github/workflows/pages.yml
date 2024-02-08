@@ -17,7 +17,6 @@ jobs:
           bun run build
       - run: |
           bun i
-          bun prepare
           bun run build
         working-directory: example
         env:
