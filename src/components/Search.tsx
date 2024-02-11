@@ -18,7 +18,7 @@ export default function Search({ query }: MfmSearch["props"]) {
         placeholder={query}
         ref={input}
         key={query}
-        className="mfm-searchButton"
+        className="mfm-searchInput"
       />
       <button
         onClick={() => {

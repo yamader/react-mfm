@@ -9,8 +9,8 @@ const text = `**hello, world**
 
 This is a _test_ page for RSC.
 
-Block code, (custom) Emoji, Function, Formula, Hashtag, Mention and Search are client components.
-In contrast, **BOLD**, ~~Strike~~, _Oblique_, [link](http://example.com), \`Inline Code\`,
+Block code, Custom Emoji, Function, Formula, Hashtag, URL, Link, Mention and Search are client components.
+In contrast, **Bold**, <small>Small</small>, _Italic_, ~~Strike~~, \`Inline Code\`,
 <center>Center</center>
 > and Quote
 are server components.`

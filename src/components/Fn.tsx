@@ -33,7 +33,10 @@ function ccodestr(s: Arg) {
 }
 
 export default function Fn({ name, args, children }: MfmFn["props"] & { children: ReactNode }) {
-  const { advanced, animation } = useAtomValue(mfmConfigAtom)
+  const config = useAtomValue(mfmConfigAtom)
+
+  const advanced = config.advanced ?? true
+  const animation = config.animation ?? true
   const anim = advanced && animation
 
   switch (name) {
@@ -176,7 +179,7 @@ function composeStyle(
               animationDelay: delay ?? "0s",
             },
           ]
-        : [, "mfm-gpl-rainbow-static"]
+        : [, "mfm-rainbowStatic"]
 
     case "rotate":
       return [
@@ -202,7 +205,7 @@ function composeStyle(
     case "fg":
       return [
         {
-          color: ccodestr(args.color) ?? "red",
+          color: ccodestr(args.color) ?? "var(--mfm-fg)",
           overflowWrap: "anywhere",
         },
       ]
@@ -210,7 +213,7 @@ function composeStyle(
     case "bg":
       return [
         {
-          color: ccodestr(args.color) ?? "red",
+          backgroundColor: ccodestr(args.color) ?? "var(--mfm-bg)",
           overflowWrap: "anywhere",
         },
       ]

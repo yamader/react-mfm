@@ -1,13 +1,13 @@
 import { type MfmNode } from "mfm-js"
 import { Fragment, type ReactNode } from "react"
 import { type MfmBasicProps } from "."
-import A from "./components/A"
 import Code from "./components/Code"
 import CustomEmoji from "./components/CustomEmoji"
 import Emoji from "./components/Emoji"
 import Fn from "./components/Fn"
 import Formula from "./components/Formula"
 import Hashtag from "./components/Hashtag"
+import Link from "./components/Link"
 import Mention from "./components/Mention"
 import Search from "./components/Search"
 import { id, intersperse } from "./utils"
@@ -81,7 +81,7 @@ function SingleNode({ node, ...props }: MfmBasicProps & { node: MfmNode }) {
       )
 
     case "inlineCode":
-      return <code>{node.props.code}</code>
+      return <code className="mfm-inlineCode">{node.props.code}</code>
 
     case "mathInline":
       return <Formula formula={node.props.formula} />
@@ -98,9 +98,9 @@ function SingleNode({ node, ...props }: MfmBasicProps & { node: MfmNode }) {
 
       if (!body.startsWith("//"))
         return (
-          <A href={node.props.url} rel="nofollow noopener">
+          <Link href={node.props.url} rel="nofollow noopener">
             {node.props.url}
-          </A>
+          </Link>
         )
 
       let prefix = scheme + "//"
@@ -113,19 +113,19 @@ function SingleNode({ node, ...props }: MfmBasicProps & { node: MfmNode }) {
       const host = auth.split(":")[0]
 
       return (
-        <A href={node.props.url} rel="nofollow noopener">
+        <Link href={node.props.url} rel="nofollow noopener">
           {prefix}
           <span className="mfm-urlHost">{host}</span>
           {node.props.url.slice(prefix.length + host.length)}
-        </A>
+        </Link>
       )
     }
 
     case "link":
       return (
-        <A href={node.props.url} rel="nofollow noopener">
+        <Link href={node.props.url} rel="nofollow noopener">
           <Node nodes={node.children} {...props} nyaize={false} />
-        </A>
+        </Link>
       )
 
     case "fn":

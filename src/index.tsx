@@ -4,6 +4,7 @@ import { type FC } from "react"
 import Node from "./Node"
 import { type CustomEmojiProps } from "./components/CustomEmoji"
 import { type HashtagProps } from "./components/Hashtag"
+import { LinkProps } from "./components/Link"
 import { type MentionProps } from "./components/Mention"
 import "./style.css"
 
@@ -29,24 +30,18 @@ export default Mfm
 
 export { CustomEmojiProps, HashtagProps, MentionProps }
 
-export type MfmConfig = {
+export type MfmConfig = Partial<{
   // mfm
-  advanced: boolean
-  animation: boolean
+  advanced: boolean // default: true
+  animation: boolean // default: true
 
   // components
-  CustomEmoji?: FC<CustomEmojiProps>
-  Hashtag?: FC<HashtagProps>
-  Mention?: FC<MentionProps>
+  CustomEmoji: FC<CustomEmojiProps>
+  Hashtag: FC<HashtagProps>
+  Link: FC<LinkProps>
+  Mention: FC<MentionProps>
+}>
 
-  // system
-  assetsBase?: string
-}
-
-export const mfmConfigAtom = atom<MfmConfig>({
-  advanced: true,
-  animation: true,
-})
-
+export const mfmConfigAtom = atom<MfmConfig>({})
 export const useMfmConfig = () => useAtom(mfmConfigAtom)
 export const useMfmConfigValue = () => useAtomValue(mfmConfigAtom)

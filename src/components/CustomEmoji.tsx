@@ -5,9 +5,7 @@ import { useMfmConfigValue } from ".."
 
 export type CustomEmojiProps = MfmEmojiCode["props"]
 
-function DummyCustomEmoji({ name }: CustomEmojiProps) {
-  return `:${name}:`
-}
+const DummyCustomEmoji = ({ name }: CustomEmojiProps) => `:${name}:`
 
 export default function CustomEmoji(props: CustomEmojiProps) {
   const { CustomEmoji } = useMfmConfigValue()
