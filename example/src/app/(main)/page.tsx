@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import Mfm, { useMfmConfig } from "react-mfm"
 import Auth from "~/components/Auth"
 import CustomEmoji from "~/components/CustomEmoji"
-import { basePath } from "~/consts"
 
 const usage = `
 \`\`\`tsx
@@ -42,7 +41,7 @@ export default function IndexPage() {
 
   useEffect(() => {
     // どこ置けばええんやろ(Client Componentに置く必要有)
-    setMfmConfig({ ...mfmConfig, assetsBase: basePath, CustomEmoji })
+    setMfmConfig({ ...mfmConfig, CustomEmoji })
   }, [])
 
   return (
