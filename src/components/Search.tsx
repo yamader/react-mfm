@@ -20,12 +20,7 @@ export default function Search({ query }: MfmSearch["props"]) {
         key={query}
         className="mfm-searchInput"
       />
-      <button
-        onClick={() => {
-          const current = input.current?.value
-          if (current) search(current)
-        }}
-        className="mfm-searchButton">
+      <button onClick={() => search(input.current?.value ?? query)} className="mfm-searchButton">
         検索
       </button>
     </div>
