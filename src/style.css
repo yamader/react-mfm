@@ -101,6 +101,7 @@
 
 .mfm-link {
   color: var(--mfm-link);
+  overflow-wrap: break-word;
 }
 
 .mfm-urlHost {
