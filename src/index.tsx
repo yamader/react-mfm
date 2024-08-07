@@ -1,3 +1,5 @@
+"use client" // wtf
+
 import { atom, useAtom, useAtomValue } from "jotai"
 import { parse, parseSimple, type MfmNode } from "mfm-js"
 import { type FC } from "react"

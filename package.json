@@ -1,7 +1,7 @@
 {
   "name": "react-mfm",
   "description": "MFM for React",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "author": "YamaD <dev@dyama.net>",
   "dependencies": {
     "@twemoji/api": "15.1.0",
