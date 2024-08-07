@@ -1,5 +1,9 @@
 # react-mfm
 
+## Note
+
+- `next@14.2`以降，RSCのビルドがShikiのなんかでコケる
+
 ## Usage
 
 See `example/`.
