@@ -1,7 +1,6 @@
 "use client"
 
 import { atom, useAtomValue } from "jotai"
-import "katex/dist/katex.min.css"
 import { Suspense, useMemo } from "react"
 
 type FormulaProps = {

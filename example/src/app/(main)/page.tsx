@@ -9,6 +9,7 @@ const usage = `
 \`\`\`tsx
 import Mfm from "react-mfm"
 import "react-mfm/style.css"
+import "katex/dist/katex.min.css" // to support Formula
 
 const text = \`
   <center>

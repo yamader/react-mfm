@@ -1,6 +1,8 @@
 import { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { ReactNode } from "react"
+
+import "katex/dist/katex.min.css"
 import "react-mfm/style.css"
 import "~/style.css"
 
