@@ -1,23 +1,23 @@
 {
   "name": "react-mfm",
   "description": "MFM for React",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": "YamaD <dev@dyama.net>",
   "dependencies": {
-    "@twemoji/api": "15.0.3",
+    "@twemoji/api": "15.1.0",
     "jotai": ">=2.2.0 <3",
-    "katex": "0.16.9",
+    "katex": "0.16.11",
     "mfm-js": "0.24.0",
-    "shiki": "1.1.1"
+    "shiki": "1.12.1"
   },
   "devDependencies": {
-    "@microsoft/api-extractor": "7.40.1",
-    "@types/katex": "0.16",
-    "@types/node": "20",
-    "@types/react": "18",
-    "prettier": "3.2.5",
-    "prettier-plugin-organize-imports": "3.2.4",
-    "tsup": "8.0.2"
+    "@microsoft/api-extractor": "7.47.5",
+    "@types/katex": "0.16.7",
+    "@types/react": "18.3.3",
+    "prettier": "3.3.3",
+    "prettier-plugin-organize-imports": "4.0.0",
+    "tsup": "8.2.4",
+    "typescript": "5.4.2"
   },
   "exports": {
     ".": "./dist/index.js",
@@ -45,7 +45,7 @@
     "format": "esm",
     "sourcemap": true,
     "splitting": false,
-    "bundle": false
+    "clean": true
   },
   "type": "module",
   "types": "./dist/index.d.ts"

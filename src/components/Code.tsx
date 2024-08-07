@@ -2,7 +2,7 @@
 
 import { atom, useAtom, useAtomValue } from "jotai"
 import { Suspense, useMemo } from "react"
-import { bundledLanguages, getHighlighter, type BundledLanguage } from "shiki"
+import { bundledLanguages, createHighlighter, type BundledLanguage } from "shiki"
 
 type CodeProps = {
   code: string
@@ -14,7 +14,7 @@ const defaultLang = "js"
 const langs = [defaultLang]
 const bundledLangs = Object.keys(bundledLanguages)
 
-const highlighterAtom = atom(() => getHighlighter({ langs, themes: [theme] }))
+const highlighterAtom = atom(() => createHighlighter({ langs, themes: [theme] }))
 const langsAtom = atom(langs)
 
 function CodeSuspense({ code, lang = defaultLang }: CodeProps) {

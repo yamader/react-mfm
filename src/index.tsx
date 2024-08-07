@@ -4,9 +4,8 @@ import { type FC } from "react"
 import Node from "./Node"
 import { type CustomEmojiProps } from "./components/CustomEmoji"
 import { type HashtagProps } from "./components/Hashtag"
-import { LinkProps } from "./components/Link"
+import { type LinkProps } from "./components/Link"
 import { type MentionProps } from "./components/Mention"
-import "./style.css"
 
 ////////////////////////////////////////////////////////////////
 

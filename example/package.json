@@ -1,16 +1,16 @@
 {
   "name": "example",
   "dependencies": {
-    "next": "14.1.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-mfm": "file:.."
   },
   "devDependencies": {
-    "@types/node": "20",
-    "@types/react": "18",
-    "@types/react-dom": "18",
-    "serve": "14.2.1"
+    "@types/node": "22.1.0",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "serve": "14.2.3"
   },
   "private": true,
   "scripts": {
